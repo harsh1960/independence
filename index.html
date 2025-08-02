@@ -4,279 +4,321 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>स्वतंत्रता दिवस की शुभकामनाएं</title>
+    <!-- Google Fonts: Teko for headings, Poppins for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     
     <!-- CSS Styles -->
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Teko:wght@400;700&family=Hind+Siliguri:wght@400;700&display=swap');
-
-        body {
-            font-family: 'Hind Siliguri', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f4f8;
-            text-align: center;
+        :root {
+            --saffron: #FF9933;
+            --white: #FFFFFF;
+            --green: #138808;
+            --navy: #000080;
+            --text-dark: #333;
+            --text-light: #555;
+            --bg-light: #f5f8fa;
         }
 
+        /* --- Base & Animation Setup --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); }
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        /* --- Banner Section --- */
         .banner {
             position: relative;
             width: 100%;
-            height: 50vh;
-            /* You can change this image URL to your preferred one */
+            height: 60vh;
             background-image: url('https://i.postimg.cc/mgfNDDXd/independence.jpg');
             background-size: cover;
-            background-position: center 60%;
+            background-position: center 30%;
             display: flex;
-            justify-content: center;
             align-items: center;
-            color: white;
+            justify-content: center;
+            padding: 20px;
         }
 
-        .overlay {
+        .banner::after {
+            content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0.1));
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
         }
 
         .banner-text {
             position: relative;
-            z-index: 1;
-            text-align: center;
+            z-index: 2;
+            color: var(--white);
+            text-shadow: 0px 4px 15px rgba(0, 0, 0, 0.7);
         }
 
         .banner-text h1 {
             font-family: 'Teko', sans-serif;
-            font-size: 4rem;
+            font-size: 5rem;
             font-weight: 700;
-            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8);
-            margin: 0;
-            padding: 0 20px;
             letter-spacing: 2px;
+            line-height: 1.1;
         }
 
-        .container {
-            max-width: 800px;
-            margin: -50px auto 30px auto;
-            padding: 25px;
-            background-color: #ffffff;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        /* --- Main Content Card --- */
+        .main-card {
+            max-width: 700px;
+            margin: -80px auto 40px auto;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            padding: 30px 40px;
             position: relative;
-            z-index: 2;
+            z-index: 10;
+            animation: fadeIn 0.8s ease-out;
         }
 
-        /* Greeting from the person who shared the link */
+        /* --- Different Sections inside the card --- */
+        #greetingFromSenderSection, #mainInvitationSection, #inputSection, #finalShareSection {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        /* Greeting from sender */
         #greetingFromSenderSection {
-            background-color: #fff9e6; /* Light saffron */
-            padding: 15px;
-            border-radius: 8px;
+            background-color: #e6f9f0;
+            border: 2px solid var(--green);
+            border-radius: 12px;
+            padding: 15px 20px;
             margin-bottom: 25px;
-            border: 2px solid #ffcc80;
         }
 
         #greetingFromSenderSection p {
-            margin: 0;
-            font-size: 1.25rem;
-            color: #e65100; /* Dark saffron text */
-            font-weight: bold;
-        }
-        #greetingFromSenderSection p #senderName {
-            color: #d84315;
-        }
-
-        /* The main call to action */
-        #invitationSection h2 {
-            font-family: 'Teko', sans-serif;
-            font-size: 2.5rem;
-            color: #138808; /* Green */
-            margin: 0 0 10px 0;
-        }
-
-        #invitationSection p {
-            font-size: 1.2rem;
-            color: #333;
-            margin: 0;
-        }
-
-        #nameInput {
-            width: calc(100% - 24px);
-            padding: 12px;
-            border: 2px solid #ccc;
-            border-radius: 5px;
             font-size: 1.1rem;
-            margin-top: 25px;
-            font-family: 'Hind Siliguri', sans-serif;
-            transition: border-color 0.3s;
+            font-weight: 600;
+            color: var(--green);
+        }
+        #greetingFromSenderSection #senderName {
+            color: #0d5c07;
+            font-weight: 700;
+        }
+
+        /* Main Invitation */
+        #mainInvitationSection h2 {
+            font-family: 'Teko', sans-serif;
+            font-size: 3rem;
+            color: var(--navy);
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+        #mainInvitationSection p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+        
+        .divider {
+            border: 0;
+            height: 2px;
+            background-image: linear-gradient(to right, transparent, var(--saffron), transparent);
+            margin: 30px 0;
+        }
+
+        /* Input Section */
+        #nameInput {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-family: 'Poppins', sans-serif;
+            margin-top: 15px;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
         #nameInput:focus {
-            border-color: #FF9933;
             outline: none;
+            border-color: var(--saffron);
+            box-shadow: 0 0 10px rgba(255, 153, 51, 0.3);
         }
 
         #generateBtn {
-            background: linear-gradient(45deg, #FF9933, #e68a2e);
-            color: white;
-            border: none;
-            padding: 14px 30px;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            font-family: 'Hind Siliguri', sans-serif;
+            font-family: 'Poppins', sans-serif;
             font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--white);
+            background: linear-gradient(45deg, var(--saffron), #e68a2e);
+            border: none;
+            padding: 14px 35px;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: transform 0.2s, box-shadow 0.3s;
             box-shadow: 0 4px 15px rgba(255, 153, 51, 0.4);
         }
-
         #generateBtn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 153, 51, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(255, 153, 51, 0.5);
+        }
+        #generateBtn i {
+            margin-right: 10px;
         }
 
-        /* Section shown after generating the link */
-        #shareSection > p:first-of-type {
-            font-size: 1.4rem;
-            color: #000080; /* Navy Blue */
-            font-weight: bold;
+        /* Final Share Section */
+        #finalShareSection h3 {
+            font-family: 'Teko', sans-serif;
+            color: var(--green);
+            font-size: 2.5rem;
+            line-height: 1.2;
         }
-
-        .share-link-text {
-            font-size: 1rem !important;
-            color: #555 !important;
-            margin-bottom: 5px;
+        #finalShareSection p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 15px;
         }
 
         .share-link-container {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 10px;
+            margin: 25px 0;
         }
-
         #shareableLink {
-            width: 70%;
-            padding: 10px;
-            border: 2px solid #ccc;
-            border-radius: 5px 0 0 5px;
-            font-size: 0.9rem;
-            background-color: #f9f9f9;
-            color: #000080; /* Navy Blue */
+            width: 100%;
+            flex-grow: 1;
+            padding: 12px;
+            border: 2px dashed var(--navy);
             border-right: none;
-        }
-
-        #copyBtn {
-            padding: 10px;
-            background-color: #000080;
-            color: white;
-            border: 2px solid #000080;
-            border-radius: 0 5px 5px 0;
-            cursor: pointer;
+            border-radius: 10px 0 0 10px;
             font-size: 1rem;
+            background-color: #f0f4f8;
+            color: var(--navy);
+            font-weight: 600;
+        }
+        #copyBtn {
+            flex-shrink: 0;
+            padding: 0 20px;
+            background: var(--navy);
+            color: var(--white);
+            border: 2px solid var(--navy);
+            border-radius: 0 10px 10px 0;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background-color 0.3s;
+        }
+        #copyBtn:hover {
+            background-color: #00005a;
         }
 
-        .whatsapp-btn {
+        #whatsappShareBtn {
             display: inline-block;
-            background-color: #25D366;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
             text-decoration: none;
-            font-size: 1.1rem;
-            margin-top: 20px;
-            transition: transform 0.2s, box-shadow 0.2s;
             font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--white);
+            background-color: #25D366;
+            padding: 14px 35px;
+            border-radius: 50px;
             box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            animation: pulse 2s infinite;
         }
-        .whatsapp-btn i {
+        #whatsappShareBtn i {
             margin-right: 10px;
         }
-        .whatsapp-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+        #whatsappShareBtn:hover {
+            animation-play-state: paused;
         }
 
-        .motivational-message {
-            font-size: 1.1rem !important;
-            color: #555 !important;
+        .final-motivational-message {
+            font-weight: 600 !important;
+            color: var(--navy) !important;
             margin-top: 30px;
-            line-height: 1.6;
         }
 
-        .hidden {
-            display: none;
-        }
-        
-        hr {
-            border: 0;
-            height: 1px;
-            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
-            margin: 30px 0;
-        }
+        .hidden { display: none; }
 
+        /* --- Responsive Design --- */
         @media (max-width: 768px) {
-            .banner {
-                height: 40vh;
+            .banner { height: 50vh; }
+            .banner-text h1 { font-size: 3.5rem; }
+            .main-card {
+                margin: -50px 15px 30px 15px;
+                padding: 25px;
             }
-            .banner-text h1 {
-                font-size: 2.8rem;
-            }
-            #invitationSection h2 {
-                font-size: 2rem;
-            }
-            .container {
-                margin: -40px 15px 30px 15px;
-                padding: 20px;
-            }
+            #mainInvitationSection h2 { font-size: 2.5rem; }
         }
+
+        @media (max-width: 480px) {
+            .banner-text h1 { font-size: 2.8rem; }
+            .main-card { padding: 20px; }
+            #mainInvitationSection h2 { font-size: 2.2rem; }
+            #finalShareSection h3 { font-size: 2rem; }
+            #generateBtn, #whatsappShareBtn {
+                font-size: 1rem;
+                padding: 12px 25px;
+            }
+            #shareableLink { font-size: 0.9rem; }
+        }
+
     </style>
 </head>
 <body>
 
     <header class="banner">
-        <div class="overlay"></div>
         <div class="banner-text">
-            <h1>स्वतंत्रता दिवस की हार्दिक शुभकामनाएँ!</h1>
+            <h1>जय हिंद!</h1>
         </div>
     </header>
 
-    <main class="container">
-        <!-- 1. This appears ONLY if the link was shared -->
+    <main class="main-card">
+        <!-- 1. This section appears ONLY if the link was shared by someone -->
         <div id="greetingFromSenderSection" class="hidden">
-            <p>आपको <strong id="senderName"></strong> की ओर से शुभकामनाएँ मिली हैं!</p>
+            <p><i class="fas fa-envelope-open-text"></i> आपको <strong id="senderName"></strong> की ओर से एक खास शुभकामना मिली है!</p>
         </div>
 
-        <!-- 2. This invites the current user to create their own greeting -->
-        <div id="invitationSection">
-            <h2>अब आप भी अपनी शुभकामनाएँ भेजें!</h2>
-            <p>बस नीचे अपना नाम लिखें और पूरे भारत के साथ जश्न मनाएं।</p>
+        <!-- 2. The main invitation section for all users -->
+        <div id="mainInvitationSection">
+            <h2>इस जश्न में शामिल हों!</h2>
+            <p>अपना नाम लिखें और स्वतंत्रता दिवस की अपनी डिजिटल शुभकामनाएँ बनाकर पूरे देश के साथ साझा करें।</p>
         </div>
         
-        <hr id="divider">
+        <hr class="divider" id="divider">
 
-        <!-- 3. The input for the current user's name -->
+        <!-- 3. The input form -->
         <div id="inputSection">
             <input type="text" id="nameInput" placeholder="अपना पूरा नाम यहाँ लिखें...">
             <button id="generateBtn">
-                <i class="fas fa-paper-plane"></i> अपनी शुभकामनाएँ बनाएं
+                <i class="fas fa-flag"></i> अपनी शुभकामनाएँ बनाएँ
             </button>
         </div>
 
-        <!-- 4. The share section, which replaces everything else after creation -->
-        <div id="shareSection" class="hidden">
-            <p><strong id="fromName"></strong> की तरफ से, आपको और आपके परिवार को स्वतंत्रता दिवस की हार्दिक शुभकामनाएँ!</p>
-            <p class="share-link-text">इस लिंक को कॉपी करें और अपने दोस्तों और परिवार के साथ शेयर करें:</p>
+        <!-- 4. The final share section (hidden by default) -->
+        <div id="finalShareSection" class="hidden">
+            <h3>आपकी शुभकामनाएँ तैयार हैं!</h3>
+            <p><strong><span id="fromName"></span></strong> की तरफ से, आपको और आपके परिवार को स्वतंत्रता दिवस की हार्दिक शुभकामनाएँ!</p>
             <div class="share-link-container">
                 <input type="text" id="shareableLink" readonly>
-                <button id="copyBtn"><i class="far fa-copy"></i></button>
+                <button id="copyBtn" title="Copy Link"><i class="far fa-copy"></i></button>
             </div>
             <a href="#" id="whatsappShareBtn" class="whatsapp-btn" target="_blank">
                 <i class="fab fa-whatsapp"></i> WhatsApp पर शेयर करें
             </a>
-            <p class="motivational-message">इस उत्सव को और भी खास बनाने के लिए, इस लिंक को अपने दोस्तों और परिवार के साथ साझा करें!</p>
+            <p class="final-motivational-message">एक छोटा सा क्लिक, एक बड़ा संदेश।<br>इस लिंक को भेजकर देश के कोने-कोने तक उत्सव की लहर पहुँचाएँ।</p>
         </div>
     </main>
 
@@ -286,73 +328,56 @@
             // Get all necessary elements from the DOM
             const nameInput = document.getElementById('nameInput');
             const generateBtn = document.getElementById('generateBtn');
-            const invitationSection = document.getElementById('invitationSection');
+            const mainInvitationSection = document.getElementById('mainInvitationSection');
             const inputSection = document.getElementById('inputSection');
             const divider = document.getElementById('divider');
-            const shareSection = document.getElementById('shareSection');
-            const fromName = document.getElementById('fromName');
-            const shareableLink = document.getElementById('shareableLink');
+            const finalShareSection = document.getElementById('finalShareSection');
+            const fromNameSpan = document.getElementById('fromName');
+            const shareableLinkInput = document.getElementById('shareableLink');
             const copyBtn = document.getElementById('copyBtn');
             const whatsappShareBtn = document.getElementById('whatsappShareBtn');
             const greetingFromSenderSection = document.getElementById('greetingFromSenderSection');
             const senderNameSpan = document.getElementById('senderName');
 
-            // Function to handle actions when the page loads
             const handlePageLoad = () => {
                 const urlParams = new URLSearchParams(window.location.search);
                 const senderName = urlParams.get('name');
 
                 if (senderName) {
-                    // If a 'name' is in the URL, this link was shared.
-                    // Show the greeting from the sender.
                     document.title = `${senderName} की तरफ से शुभकामनाएं`;
                     senderNameSpan.textContent = decodeURIComponent(senderName);
                     greetingFromSenderSection.classList.remove('hidden');
                 }
-                // The invitation and input sections remain visible by default for the new user.
             };
 
-            // Add event listener to the "Generate" button
             generateBtn.addEventListener('click', () => {
                 const currentUserName = nameInput.value.trim();
-
                 if (currentUserName) {
-                    // Get the base URL (without any query parameters)
                     const baseUrl = window.location.origin + window.location.pathname;
-                    // Create a new URL with the current user's name
                     const newUrl = `${baseUrl}?name=${encodeURIComponent(currentUserName)}`;
 
-                    // Populate the share section with the new user's details
-                    fromName.textContent = currentUserName;
-                    shareableLink.value = newUrl;
+                    fromNameSpan.textContent = currentUserName;
+                    shareableLinkInput.value = newUrl;
 
-                    // Create the personalized message for WhatsApp sharing
-                    const personalizedMessage = `🇮🇳 *${currentUserName}* की तरफ से आपको स्वतंत्रता दिवस की हार्दिक शुभकामनाएँ! 🇮🇳`;
-                    const whatsappMessage = `${personalizedMessage}\n\nमेरी शुभकामनाएं देखने और अपनी बनाने के लिए इस लिंक पर क्लिक करें:\n${newUrl}`;
+                    const personalizedMessage = `🇮🇳 *${currentUserName}* ने आपको स्वतंत्रता दिवस की एक खास शुभकामना भेजी है!* 🇮🇳`;
+                    const whatsappMessage = `${personalizedMessage}\n\nमेरी शुभकामना देखने और अपनी बनाने के लिए इस लिंक पर क्लिक करें:\n${newUrl}`;
                     whatsappShareBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(whatsappMessage)}`;
 
-                    // Hide everything except the new share section
+                    // Hide initial sections and show the final share section
+                    mainInvitationSection.classList.add('hidden');
                     inputSection.classList.add('hidden');
-                    invitationSection.classList.add('hidden');
                     greetingFromSenderSection.classList.add('hidden');
                     divider.classList.add('hidden');
-                    
-                    // Show the new share section
-                    shareSection.classList.remove('hidden');
+                    finalShareSection.classList.remove('hidden');
                 } else {
-                    // Alert if the name field is empty
                     alert('कृपया अपना नाम दर्ज करें।');
                 }
             });
 
-            // Add event listener for the copy button
             copyBtn.addEventListener('click', () => {
-                shareableLink.select();
-                shareableLink.setSelectionRange(0, 99999); // For mobile devices
-
-                navigator.clipboard.writeText(shareableLink.value).then(() => {
-                    // Provide visual feedback
-                    copyBtn.innerHTML = '<i class="fas fa-check"></i>'; 
+                shareableLinkInput.select();
+                navigator.clipboard.writeText(shareableLinkInput.value).then(() => {
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i>';
                     setTimeout(() => {
                         copyBtn.innerHTML = '<i class="far fa-copy"></i>';
                     }, 2000);
@@ -361,11 +386,9 @@
                 });
             });
 
-            // Run the page load handler to check for shared links
             handlePageLoad();
         });
     </script>
 
 </body>
 </html>
-
