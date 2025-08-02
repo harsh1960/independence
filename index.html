@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Independence Day Wishes</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+
+    <div class="banner">
+        <div class="overlay"></div>
+        <div class="banner-text">
+            <h1>स्वतंत्रता दिवस की हार्दिक शुभकामनाएँ!</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="greetingSection">
+            <!-- Personalized greeting will appear here -->
+        </div>
+
+        <div id="inputSection">
+            <p>अपना नाम दर्ज करें और अपनी शुभकामनाएं भेजें</p>
+            <input type="text" id="nameInput" placeholder="अपना नाम यहाँ लिखें...">
+            <button id="generateBtn">शुभकामनाएं बनाएं</button>
+        </div>
+
+        <div id="shareSection" class="hidden">
+            <p>यह शुभकामनाएं <strong id="fromName"></strong> की तरफ से हैं।</p>
+            <p class="share-link-text">इस लिंक को कॉपी करें और शेयर करें:</p>
+            <div class="share-link-container">
+                <input type="text" id="shareableLink" readonly>
+                <button id="copyBtn"><i class="far fa-copy"></i></button>
+            </div>
+            <a href="#" id="whatsappShareBtn" class="whatsapp-btn" target="_blank">
+                <i class="fab fa-whatsapp"></i> WhatsApp पर शेयर करें
+            </a>
+            <p class="motivational-message">इस उत्सव को और भी खास बनाने के लिए, इस लिंक को अपने दोस्तों और परिवार के साथ साझा करें!</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
