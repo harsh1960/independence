@@ -395,7 +395,7 @@
                 const senderName = urlParams.get('name');
                 if (senderName && senderName.trim() !== '') {
                     const decodedSenderName = decodeURIComponent(senderName);
-                    document.title = ${decodedSenderName} की तरफ से शुभकामनाएं;
+                    document.title = `${decodedSenderName} की तरफ से शुभकामनाएं`;
                     senderNameSpan.textContent = decodedSenderName;
                     greetingFromSenderSection.classList.remove('hidden');
                 }
@@ -411,15 +411,15 @@
 
                     // Your original code continues below
                     const baseUrl = window.location.origin + window.location.pathname;
-                    const newUrl = ${baseUrl}?name=${encodeURIComponent(currentUserName)};
+                    const newUrl = `${baseUrl}?name=${encodeURIComponent(currentUserName)}`;
 
                     fromNameSpan.textContent = currentUserName;
 
-                    const personalizedMessage = 🇮🇳✨ *जय हिन्द!* ✨🇮🇳\n\n*${currentUserName}* की तरफ से आपके लिए स्वतंत्रता दिवस का एक दिल छू लेने वाला संदेश! 💌\n\nयह सिर्फ एक शुभकामना नहीं, यह मेरे दिल में बसे भारत के लिए सम्मान और अभिमान है। 🙏;
-                    const callToAction = \n\nअपना व्यक्तिगत संदेश देखने और बनाने के लिए, इस तिरंगे वाले लिंक पर क्लिक करें 👇:\n${newUrl}\n\n🇮🇳 *#MeraBharatMahan #IndependenceDay2025* 🇮🇳;
+                    const personalizedMessage = `🇮🇳✨ *जय हिन्द!* ✨🇮🇳\n\n*${currentUserName}* की तरफ से आपके लिए स्वतंत्रता दिवस का एक दिल छू लेने वाला संदेश! 💌\n\nयह सिर्फ एक शुभकामना नहीं, यह मेरे दिल में बसे भारत के लिए सम्मान और अभिमान है। 🙏`;
+                    const callToAction = `\n\nअपना व्यक्तिगत संदेश देखने और बनाने के लिए, इस तिरंगे वाले लिंक पर क्लिक करें 👇:\n${newUrl}\n\n🇮🇳 *#MeraBharatMahan #IndependenceDay2025* 🇮🇳`;
                     
-                    const whatsappMessage = ${personalizedMessage}${callToAction};
-                    whatsappShareBtn.href = https://api.whatsapp.com/send?text=${encodeURIComponent(whatsappMessage)};
+                    const whatsappMessage = `${personalizedMessage}${callToAction}`;
+                    whatsappShareBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(whatsappMessage)}`;
 
                     mainInvitationSection.classList.add('hidden');
                     inputSection.classList.add('hidden');
