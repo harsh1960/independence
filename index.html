@@ -12,7 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <!-- Tailwind Config for Perplexity-like Colors -->
+    
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -31,7 +31,7 @@
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        serif: ['Superclarendon', 'Bookman Old Style', 'serif'], // Perplexity uses serif for headings sometimes
+                        serif: ['Superclarendon', 'Bookman Old Style', 'Georgia', 'serif'],
                     }
                 }
             }
@@ -47,45 +47,36 @@
         }
 
         /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #2D2F2F;
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #3E4141;
-        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #2D2F2F; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3E4141; }
 
-        /* Markdown Styles */
+        /* Typography for AI Answers */
         .prose {
             max-width: none;
             color: #E8E8E6;
             line-height: 1.7;
+            font-size: 1rem;
         }
         .prose h1, .prose h2, .prose h3 {
             color: #E8E8E6;
-            font-family: 'Inter', sans-serif; /* Kept sans for cleaner chat look */
-            font-weight: 600;
+            font-family: 'Superclarendon', 'Bookman Old Style', 'Georgia', serif;
+            font-weight: 500;
             margin-top: 1.5em;
             margin-bottom: 0.5em;
         }
-        .prose p {
-            margin-bottom: 1em;
-        }
+        .prose p { margin-bottom: 1em; }
         .prose code {
             background-color: #2D2F2F;
             padding: 0.2em 0.4em;
             border-radius: 4px;
             font-size: 0.875em;
+            font-family: monospace;
             color: #23B9B7;
         }
         .prose pre {
-            background-color: #202222;
+            background-color: #000000;
             padding: 1em;
             border-radius: 8px;
             overflow-x: auto;
@@ -96,83 +87,62 @@
             background-color: transparent;
             color: #E8E8E6;
             padding: 0;
+            font-size: 0.9em;
         }
-        .prose ul {
-            list-style-type: disc;
-            padding-left: 1.5em;
-            margin-bottom: 1em;
-        }
-        .prose ol {
-            list-style-type: decimal;
-            padding-left: 1.5em;
-            margin-bottom: 1em;
-        }
-        .prose strong {
-            color: #fff;
-            font-weight: 600;
-        }
-        .prose a {
-            color: #23B9B7;
-            text-decoration: none;
-        }
-        .prose a:hover {
-            text-decoration: underline;
-        }
+        .prose strong { color: #fff; font-weight: 600; }
+        .prose ul { list-style-type: disc; padding-left: 1.5em; margin-bottom: 1em; }
+        .prose ol { list-style-type: decimal; padding-left: 1.5em; margin-bottom: 1em; }
 
         /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .animate-fade-in {
-            animation: fadeIn 0.3s ease-out forwards;
-        }
+        .animate-fade-in { animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         
         @keyframes pulse-subtle {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            50% { opacity: 0.6; }
         }
-        .animate-pulse-subtle {
-            animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
+        .animate-pulse-subtle { animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
     </style>
 </head>
-<body class="h-screen flex flex-col md:flex-row overflow-hidden">
+<body class="h-screen flex flex-col md:flex-row overflow-hidden selection:bg-pplx-accent selection:text-white">
 
-    <!-- Sidebar (Desktop) -->
+    <!-- Sidebar -->
     <aside class="hidden md:flex w-64 flex-col border-r border-pplx-border bg-pplx-bg h-full p-4 z-20">
         <div class="flex items-center gap-2 mb-8 px-2 cursor-pointer" onclick="resetChat()">
             <i class="ph-fill ph-asterisk-simple text-3xl text-pplx-accent"></i>
             <h1 class="text-xl font-semibold tracking-tight">Larplexity</h1>
         </div>
 
-        <button onclick="resetChat()" class="flex items-center gap-3 w-full bg-pplx-card hover:bg-pplx-hover border border-pplx-border text-sm px-4 py-3 rounded-full transition-colors duration-200 mb-6">
-            <i class="ph ph-plus text-lg"></i>
+        <button onclick="resetChat()" class="flex items-center gap-3 w-full bg-pplx-card hover:bg-pplx-hover border border-pplx-border text-sm px-4 py-3 rounded-full transition-colors duration-200 mb-6 group">
+            <span class="bg-pplx-bg border border-pplx-border rounded-full p-0.5 group-hover:text-white"><i class="ph ph-plus text-xs"></i></span>
             <span>New Thread</span>
             <div class="ml-auto text-xs text-pplx-muted border border-pplx-border px-1.5 rounded">Ctrl I</div>
         </button>
 
-        <div class="flex-1 overflow-y-auto space-y-2">
-            <div class="px-2 pb-2 text-xs font-medium text-pplx-muted uppercase tracking-wider">Library</div>
-            <!-- History Items (Mock) -->
+        <div class="flex-1 overflow-y-auto space-y-1">
+            <div class="px-3 pb-2 text-xs font-semibold text-pplx-muted uppercase tracking-wider">Library</div>
+            <!-- Mock History -->
             <button class="flex items-center gap-3 w-full text-left px-3 py-2 rounded-lg hover:bg-pplx-hover text-pplx-muted hover:text-pplx-text transition-colors text-sm truncate">
                 <i class="ph ph-clock"></i>
-                <span class="truncate">What is quantum computing?</span>
+                <span class="truncate">Gemini 2.0 capabilities</span>
             </button>
             <button class="flex items-center gap-3 w-full text-left px-3 py-2 rounded-lg hover:bg-pplx-hover text-pplx-muted hover:text-pplx-text transition-colors text-sm truncate">
                 <i class="ph ph-clock"></i>
-                <span class="truncate">React vs Angular 2024</span>
+                <span class="truncate">React vs Vue performance</span>
             </button>
         </div>
 
-        <div class="mt-auto pt-4 border-t border-pplx-border">
-            <div class="flex items-center gap-3 px-2 py-2 text-sm text-pplx-muted hover:text-pplx-text cursor-pointer">
+        <div class="mt-auto pt-4 border-t border-pplx-border space-y-1">
+             <div class="flex items-center gap-3 px-3 py-2 text-sm text-pplx-muted hover:text-pplx-text hover:bg-pplx-hover rounded-lg cursor-pointer transition-colors">
+                <i class="ph ph-arrow-square-out"></i>
+                <span>Download App</span>
+            </div>
+            <div class="flex items-center gap-3 px-3 py-2 text-sm text-pplx-muted hover:text-pplx-text hover:bg-pplx-hover rounded-lg cursor-pointer transition-colors">
                 <i class="ph ph-gear"></i>
                 <span>Settings</span>
-            </div>
-            <div class="flex items-center gap-3 px-2 py-2 text-sm text-pplx-muted hover:text-pplx-text cursor-pointer">
-                <i class="ph ph-user"></i>
-                <span>Sign Up</span>
             </div>
         </div>
     </aside>
@@ -192,40 +162,56 @@
     <main class="flex-1 flex flex-col relative h-full w-full">
         
         <!-- Chat Area -->
-        <div id="chat-container" class="flex-1 overflow-y-auto px-4 pb-40 pt-8 scroll-smooth">
-            <div class="max-w-3xl mx-auto space-y-8" id="messages-list">
+        <div id="chat-container" class="flex-1 overflow-y-auto px-4 pb-48 pt-8 scroll-smooth">
+            <div class="max-w-3xl mx-auto space-y-10" id="messages-list">
                 
                 <!-- Initial Welcome View -->
-                <div id="welcome-view" class="flex flex-col items-center justify-center min-h-[50vh] text-center space-y-8 opacity-100 transition-opacity duration-300">
-                    <h2 class="text-4xl font-serif font-medium text-pplx-text mb-2">Where knowledge begins</h2>
+                <div id="welcome-view" class="flex flex-col items-center justify-center min-h-[50vh] text-center space-y-8 opacity-100 transition-opacity duration-300 mt-10">
+                    <h2 class="text-4xl md:text-5xl font-serif font-medium text-pplx-text tracking-tight">Where knowledge begins</h2>
+                    
+                    <!-- Search Bar in Center (Initially) -->
+                    <div class="w-full max-w-2xl relative group">
+                        <textarea 
+                            id="center-input"
+                            rows="1"
+                            placeholder="Ask anything..."
+                            class="w-full bg-pplx-card border border-pplx-border text-lg text-pplx-text placeholder-pplx-muted px-5 py-4 pr-14 rounded-full focus:outline-none focus:border-pplx-accent resize-none shadow-lg transition-all"
+                            oninput="syncInputs(this); autoResize(this)"
+                            onkeydown="handleEnter(event)"
+                        ></textarea>
+                         <button 
+                            onclick="sendMessage()"
+                            class="absolute right-2 bottom-2.5 p-2 bg-pplx-accent/10 text-pplx-accent hover:bg-pplx-accent hover:text-white rounded-full transition-all"
+                        >
+                            <i class="ph-fill ph-arrow-right text-lg"></i>
+                        </button>
+                    </div>
+
+                    <!-- Suggestions -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 w-full max-w-2xl text-left">
-                        <button onclick="fillInput('Explain quantum entanglement simply')" class="p-4 bg-pplx-card hover:bg-pplx-hover border border-pplx-border rounded-xl transition-all group">
+                        <button onclick="fillInput('Explain quantum computing like I am 5')" class="p-4 bg-pplx-card hover:bg-pplx-hover border border-pplx-border rounded-xl transition-all group">
                             <div class="flex items-start justify-between">
-                                <span class="text-sm font-medium text-pplx-text">Explain quantum entanglement</span>
+                                <span class="text-sm font-medium text-pplx-text">Quantum Computing</span>
                                 <i class="ph ph-atom text-pplx-muted group-hover:text-pplx-accent"></i>
                             </div>
-                            <p class="text-xs text-pplx-muted mt-1">Physics concepts</p>
                         </button>
-                        <button onclick="fillInput('Best travel destinations in Japan')" class="p-4 bg-pplx-card hover:bg-pplx-hover border border-pplx-border rounded-xl transition-all group">
+                        <button onclick="fillInput('Top 10 sci-fi movies of the decade')" class="p-4 bg-pplx-card hover:bg-pplx-hover border border-pplx-border rounded-xl transition-all group">
                             <div class="flex items-start justify-between">
-                                <span class="text-sm font-medium text-pplx-text">Travel in Japan</span>
-                                <i class="ph ph-airplane-tilt text-pplx-muted group-hover:text-pplx-accent"></i>
+                                <span class="text-sm font-medium text-pplx-text">Best Sci-Fi Movies</span>
+                                <i class="ph ph-film-strip text-pplx-muted group-hover:text-pplx-accent"></i>
                             </div>
-                            <p class="text-xs text-pplx-muted mt-1">Itineraries & tips</p>
                         </button>
-                        <button onclick="fillInput('Write a python script to parse CSV')" class="p-4 bg-pplx-card hover:bg-pplx-hover border border-pplx-border rounded-xl transition-all group">
+                        <button onclick="fillInput('Write a Python script for web scraping')" class="p-4 bg-pplx-card hover:bg-pplx-hover border border-pplx-border rounded-xl transition-all group">
                             <div class="flex items-start justify-between">
-                                <span class="text-sm font-medium text-pplx-text">Python CSV parser</span>
+                                <span class="text-sm font-medium text-pplx-text">Python Web Scraper</span>
                                 <i class="ph ph-code text-pplx-muted group-hover:text-pplx-accent"></i>
                             </div>
-                            <p class="text-xs text-pplx-muted mt-1">Coding help</p>
                         </button>
-                        <button onclick="fillInput('History of the Roman Empire summary')" class="p-4 bg-pplx-card hover:bg-pplx-hover border border-pplx-border rounded-xl transition-all group">
+                         <button onclick="fillInput('History of the Roman Empire')" class="p-4 bg-pplx-card hover:bg-pplx-hover border border-pplx-border rounded-xl transition-all group">
                             <div class="flex items-start justify-between">
-                                <span class="text-sm font-medium text-pplx-text">Roman Empire History</span>
+                                <span class="text-sm font-medium text-pplx-text">Roman Empire</span>
                                 <i class="ph ph-scroll text-pplx-muted group-hover:text-pplx-accent"></i>
                             </div>
-                            <p class="text-xs text-pplx-muted mt-1">Historical summaries</p>
                         </button>
                     </div>
                 </div>
@@ -234,37 +220,27 @@
             </div>
         </div>
 
-        <!-- Input Area (Sticky Bottom) -->
-        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-pplx-bg via-pplx-bg to-transparent pt-10 pb-6 px-4 z-10">
+        <!-- Sticky Bottom Input (Hidden initially) -->
+        <div id="sticky-input-container" class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-pplx-bg via-pplx-bg to-transparent pt-10 pb-6 px-4 z-10 hidden opacity-0 transition-opacity duration-300">
             <div class="max-w-3xl mx-auto">
-                <div class="relative group bg-pplx-card border border-pplx-border focus-within:border-pplx-accent rounded-2xl shadow-lg transition-all duration-200">
+                <div class="relative bg-pplx-card border border-pplx-border focus-within:border-pplx-accent rounded-2xl shadow-lg transition-all duration-200">
                     <textarea 
-                        id="user-input"
+                        id="footer-input"
                         rows="1"
-                        placeholder="Ask anything..."
-                        class="w-full bg-transparent text-pplx-text placeholder-pplx-muted px-4 py-4 pr-12 rounded-2xl focus:outline-none resize-none overflow-hidden max-h-48"
-                        oninput="autoResize(this)"
+                        placeholder="Ask follow-up..."
+                        class="w-full bg-transparent text-pplx-text placeholder-pplx-muted px-4 py-4 pr-14 rounded-2xl focus:outline-none resize-none overflow-hidden max-h-48"
+                        oninput="syncInputs(this); autoResize(this)"
                         onkeydown="handleEnter(event)"
                     ></textarea>
                     
                     <div class="absolute right-2 bottom-2 flex items-center gap-2">
-                        <!-- Toggle Focus Mode (Visual Only) -->
-                        <button class="p-2 text-pplx-muted hover:text-pplx-text rounded-full hover:bg-pplx-hover transition-colors" title="Attach">
-                            <i class="ph ph-paperclip"></i>
-                        </button>
-                        <button 
-                            id="send-btn"
-                            onclick="sendMessage()"
-                            class="p-2 bg-pplx-accent/10 text-pplx-accent hover:bg-pplx-accent hover:text-white rounded-full transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
+                        <button onclick="sendMessage()" class="p-2 bg-pplx-accent/10 text-pplx-accent hover:bg-pplx-accent hover:text-white rounded-full transition-all">
                             <i class="ph-fill ph-arrow-right"></i>
                         </button>
                     </div>
                 </div>
-                <div class="text-center mt-2">
-                    <p class="text-xs text-pplx-muted">
-                        Larplexity can make mistakes. Consider checking important information.
-                    </p>
+                <div class="text-center mt-2 flex justify-center items-center gap-2">
+                    <span class="text-xs text-pplx-muted">Powered by Gemini 2.0 Flash</span>
                 </div>
             </div>
         </div>
@@ -272,24 +248,23 @@
     </main>
 
     <script>
-        // CONFIGURATION
-        // NOTE: In a real production app, use a proxy server. Hardcoding keys in client is unsafe.
+        // --- CONFIGURATION ---
         const API_KEY = "AIzaSyBypJ2DXdgZ5UmWZp_pXhiEoaKDEW8BUa4"; 
-        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+        
+        // Updated URL for Gemini 2.0 Flash as per your request
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
 
         let chatHistory = [];
         const messagesList = document.getElementById('messages-list');
         const welcomeView = document.getElementById('welcome-view');
-        const userInput = document.getElementById('user-input');
-        const sendBtn = document.getElementById('send-btn');
+        const centerInput = document.getElementById('center-input');
+        const footerInput = document.getElementById('footer-input');
+        const stickyContainer = document.getElementById('sticky-input-container');
 
-        // Initial setup
-        marked.setOptions({
-            highlight: function(code, lang) {
-                return code; // Syntax highlighting could be added here with PrismJS/HighlightJS
-            },
-            breaks: true
-        });
+        let isFirstMessage = true;
+
+        // --- Setup ---
+        marked.setOptions({ breaks: true });
 
         // --- Event Handlers ---
 
@@ -305,10 +280,18 @@
             textarea.style.height = textarea.scrollHeight + 'px';
         }
 
+        function syncInputs(source) {
+            const val = source.value;
+            if(source === centerInput) footerInput.value = val;
+            else centerInput.value = val;
+        }
+
         function fillInput(text) {
-            userInput.value = text;
-            autoResize(userInput);
-            userInput.focus();
+            centerInput.value = text;
+            footerInput.value = text;
+            if(isFirstMessage) centerInput.focus();
+            else footerInput.focus();
+            sendMessage();
         }
 
         function resetChat() {
@@ -317,65 +300,77 @@
             messagesList.appendChild(welcomeView);
             welcomeView.style.display = 'flex';
             setTimeout(() => welcomeView.style.opacity = '1', 10);
-            userInput.value = '';
-            userInput.style.height = 'auto';
+            
+            centerInput.value = '';
+            footerInput.value = '';
+            centerInput.style.height = 'auto';
+            
+            stickyContainer.classList.add('hidden');
+            stickyContainer.classList.remove('opacity-100');
+            isFirstMessage = true;
         }
 
         async function sendMessage() {
-            const text = userInput.value.trim();
+            const text = footerInput.value.trim() || centerInput.value.trim();
             if (!text) return;
 
-            // UI Updates
-            userInput.value = '';
-            userInput.style.height = 'auto';
-            welcomeView.style.opacity = '0';
-            setTimeout(() => welcomeView.style.display = 'none', 300);
+            // UI Transition for first message
+            if (isFirstMessage) {
+                isFirstMessage = false;
+                welcomeView.style.opacity = '0';
+                setTimeout(() => welcomeView.style.display = 'none', 300);
+                stickyContainer.classList.remove('hidden');
+                setTimeout(() => stickyContainer.classList.add('opacity-100'), 50);
+            }
 
-            // Add User Message
+            // Clear inputs
+            centerInput.value = '';
+            footerInput.value = '';
+            centerInput.style.height = 'auto';
+            footerInput.style.height = 'auto';
+
+            // 1. Add User Message
             addMessageToUI('user', text);
             chatHistory.push({ role: "user", parts: [{ text: text }] });
 
-            // Show Thinking State
+            // 2. Add Thinking State
             const thinkingId = addThinkingToUI();
             
             try {
-                // Call Gemini API
+                // 3. Call Gemini API
                 const response = await fetch(API_URL, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json'
+                    },
                     body: JSON.stringify({
-                        contents: chatHistory,
-                        generationConfig: {
-                            temperature: 0.7,
-                            maxOutputTokens: 2048,
-                        }
+                        contents: chatHistory
                     })
                 });
 
                 const data = await response.json();
 
-                if (data.error) {
-                    throw new Error(data.error.message);
-                }
+                if (data.error) throw new Error(data.error.message);
 
-                // Parse response
-                const aiText = data.candidates[0].content.parts[0].text;
+                // 4. Parse response
+                const aiCandidate = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                const aiText = aiCandidate || "I couldn't generate a response.";
                 
-                // Remove thinking indicator
+                // 5. Remove thinking & Show result
                 removeThinkingUI(thinkingId);
-
-                // Add AI Message
                 addMessageToUI('ai', aiText);
+                
+                // 6. Update history
                 chatHistory.push({ role: "model", parts: [{ text: aiText }] });
 
             } catch (error) {
                 console.error("Error:", error);
                 removeThinkingUI(thinkingId);
-                addMessageToUI('error', "Sorry, I encountered an error connecting to the AI. Please try again.");
+                addMessageToUI('error', "Sorry, I encountered an error. Please try again.");
             }
         }
 
-        // --- UI Rendering Functions ---
+        // --- UI Rendering ---
 
         function addMessageToUI(role, text) {
             const msgDiv = document.createElement('div');
@@ -384,11 +379,11 @@
             if (role === 'user') {
                 msgDiv.innerHTML = `
                     <div class="flex gap-4">
-                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-pplx-border flex items-center justify-center">
+                        <div class="flex-shrink-0 mt-1 w-8 h-8 rounded-full bg-pplx-border flex items-center justify-center">
                             <i class="ph-fill ph-user text-pplx-muted"></i>
                         </div>
                         <div class="flex-1">
-                            <h3 class="text-xl font-serif font-medium text-pplx-text mb-2">${text}</h3>
+                            <h3 class="text-xl md:text-2xl font-serif font-medium text-pplx-text leading-tight">${text}</h3>
                         </div>
                     </div>
                 `;
@@ -396,44 +391,42 @@
                 const parsedHTML = DOMPurify.sanitize(marked.parse(text));
                 msgDiv.innerHTML = `
                     <div class="flex gap-4">
-                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-pplx-accent flex items-center justify-center text-white">
+                        <div class="flex-shrink-0 mt-1 w-8 h-8 rounded-full bg-pplx-accent flex items-center justify-center text-white shadow-[0_0_10px_rgba(35,185,183,0.3)]">
                             <i class="ph-bold ph-asterisk-simple"></i>
                         </div>
                         <div class="flex-1 min-w-0">
                             <div class="flex items-center gap-2 mb-3">
                                 <span class="text-sm font-semibold text-pplx-text">Larplexity</span>
-                                <span class="text-xs text-pplx-muted px-2 py-0.5 rounded border border-pplx-border">AI</span>
+                                <span class="text-xs text-pplx-muted px-2 py-0.5 rounded border border-pplx-border">Gemini 2.0</span>
                             </div>
-                            <!-- Sources Mock (Visual only to match Perplexity style) -->
-                            <div class="flex gap-2 mb-4 overflow-x-auto pb-2 scrollbar-hide">
-                                <div class="flex-shrink-0 flex items-center gap-2 px-3 py-2 bg-pplx-card border border-pplx-border rounded-lg text-xs text-pplx-muted hover:bg-pplx-hover cursor-pointer transition-colors">
-                                    <i class="ph-fill ph-globe"></i>
-                                    <span>Search Result 1</span>
+                            
+                            <!-- Mock Sources (Static for visual flair) -->
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-6">
+                                <div class="bg-pplx-card border border-pplx-border p-3 rounded-lg hover:bg-pplx-hover cursor-pointer transition-colors">
+                                    <div class="text-xs text-pplx-muted mb-1 truncate">en.wikipedia.org</div>
+                                    <div class="text-sm font-medium text-pplx-text truncate">Source Context 1</div>
                                 </div>
-                                <div class="flex-shrink-0 flex items-center gap-2 px-3 py-2 bg-pplx-card border border-pplx-border rounded-lg text-xs text-pplx-muted hover:bg-pplx-hover cursor-pointer transition-colors">
-                                    <i class="ph-fill ph-article"></i>
-                                    <span>Knowledge Base</span>
+                                <div class="bg-pplx-card border border-pplx-border p-3 rounded-lg hover:bg-pplx-hover cursor-pointer transition-colors">
+                                    <div class="text-xs text-pplx-muted mb-1 truncate">docs.google.com</div>
+                                    <div class="text-sm font-medium text-pplx-text truncate">Documentation</div>
                                 </div>
-                                <div class="flex-shrink-0 flex items-center gap-2 px-3 py-2 bg-pplx-card border border-pplx-border rounded-lg text-xs text-pplx-muted hover:bg-pplx-hover cursor-pointer transition-colors">
-                                    <i class="ph-fill ph-image"></i>
-                                    <span>Images</span>
+                                <div class="bg-pplx-card border border-pplx-border p-3 rounded-lg hover:bg-pplx-hover cursor-pointer transition-colors">
+                                    <div class="text-xs text-pplx-muted mb-1 truncate">stackoverflow.com</div>
+                                    <div class="text-sm font-medium text-pplx-text truncate">Discussion</div>
                                 </div>
                             </div>
-                            <div class="prose prose-invert max-w-none text-sm md:text-base leading-relaxed">
+
+                            <div class="prose prose-invert max-w-none">
                                 ${parsedHTML}
                             </div>
                             
-                            <!-- Action Bar -->
-                            <div class="flex items-center gap-4 mt-4 pt-2">
-                                <button class="flex items-center gap-1 text-xs text-pplx-muted hover:text-pplx-text transition-colors">
-                                    <i class="ph ph-copy"></i> Copy
+                            <div class="flex items-center gap-4 mt-6 pt-2 border-t border-pplx-border/50">
+                                <button class="flex items-center gap-1.5 text-xs font-medium text-pplx-muted hover:text-pplx-text transition-colors">
+                                    <i class="ph ph-copy text-sm"></i> Copy
                                 </button>
-                                <button class="flex items-center gap-1 text-xs text-pplx-muted hover:text-pplx-text transition-colors">
-                                    <i class="ph ph-share-network"></i> Share
+                                <button class="flex items-center gap-1.5 text-xs font-medium text-pplx-muted hover:text-pplx-text transition-colors">
+                                    <i class="ph ph-share-network text-sm"></i> Share
                                 </button>
-                                <div class="flex-1"></div>
-                                <button class="text-pplx-muted hover:text-pplx-text"><i class="ph ph-thumbs-up"></i></button>
-                                <button class="text-pplx-muted hover:text-pplx-text"><i class="ph ph-thumbs-down"></i></button>
                             </div>
                         </div>
                     </div>
@@ -441,7 +434,7 @@
             } else if (role === 'error') {
                 msgDiv.innerHTML = `
                     <div class="flex gap-4">
-                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-500/20 text-red-500 flex items-center justify-center">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-500/10 text-red-500 flex items-center justify-center">
                             <i class="ph-fill ph-warning"></i>
                         </div>
                         <div class="text-red-400 pt-1">${text}</div>
@@ -450,10 +443,7 @@
             }
 
             messagesList.appendChild(msgDiv);
-            
-            // Scroll to bottom
-            const container = document.getElementById('chat-container');
-            container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
+            scrollToBottom();
         }
 
         function addThinkingToUI() {
@@ -462,23 +452,23 @@
             msgDiv.id = id;
             msgDiv.className = 'flex gap-4 w-full pb-8 border-b border-pplx-border animate-fade-in';
             msgDiv.innerHTML = `
-                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-pplx-accent/20 flex items-center justify-center text-pplx-accent animate-pulse">
+                <div class="flex-shrink-0 mt-1 w-8 h-8 rounded-full bg-pplx-accent/10 flex items-center justify-center text-pplx-accent animate-pulse">
                     <i class="ph-bold ph-asterisk-simple"></i>
                 </div>
                 <div class="flex-1 pt-1">
-                    <div class="flex items-center gap-2 text-pplx-accent text-sm font-medium animate-pulse-subtle">
+                    <div class="flex items-center gap-2 text-pplx-accent text-sm font-medium animate-pulse-subtle mb-3">
                         <i class="ph ph-spinner animate-spin"></i>
-                        <span>Searching for answer...</span>
+                        <span>Reasoning...</span>
                     </div>
-                    <div class="mt-3 space-y-2">
-                        <div class="h-2 bg-pplx-card rounded w-3/4 animate-pulse"></div>
-                        <div class="h-2 bg-pplx-card rounded w-1/2 animate-pulse"></div>
+                    <div class="space-y-2 opacity-50">
+                        <div class="h-4 bg-pplx-card rounded w-3/4 animate-pulse"></div>
+                        <div class="h-4 bg-pplx-card rounded w-1/2 animate-pulse"></div>
+                        <div class="h-4 bg-pplx-card rounded w-5/6 animate-pulse"></div>
                     </div>
                 </div>
             `;
             messagesList.appendChild(msgDiv);
-            const container = document.getElementById('chat-container');
-            container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
+            scrollToBottom();
             return id;
         }
 
@@ -487,7 +477,13 @@
             if (el) el.remove();
         }
 
+        function scrollToBottom() {
+            const container = document.getElementById('chat-container');
+            container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
+        }
+
     </script>
 </body>
 </html>
+
 
