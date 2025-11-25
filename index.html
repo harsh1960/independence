@@ -1,441 +1,493 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🇮🇳 स्वतंत्रता का उत्सव | अपनी शुभकामनाएं भेजें</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-    
+    <title>Larplexity</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Marked Library for Markdown Rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- DOMPurify for sanitizing HTML -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Tailwind Config for Perplexity-like Colors -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        pplx: {
+                            bg: '#191A1A',
+                            card: '#202222',
+                            border: '#2D2F2F',
+                            text: '#E8E8E6',
+                            muted: '#8D9191',
+                            accent: '#23B9B7', // Teal-ish accent
+                            hover: '#2C2D2D'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Superclarendon', 'Bookman Old Style', 'serif'], // Perplexity uses serif for headings sometimes
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --saffron: #FF9933;
-            --white: #FFFFFF;
-            --green: #138808;
-            --navy: #000080;
-            --text-dark: #2c3e50;
-            --text-light: #4a6177;
-            --bg-light: #f5f8fa;
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #191A1A;
+            color: #E8E8E6;
         }
 
-        /* --- Base & Animation Setup --- */
-        * {
-            margin: 0;
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2D2F2F;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3E4141;
+        }
+
+        /* Markdown Styles */
+        .prose {
+            max-width: none;
+            color: #E8E8E6;
+            line-height: 1.7;
+        }
+        .prose h1, .prose h2, .prose h3 {
+            color: #E8E8E6;
+            font-family: 'Inter', sans-serif; /* Kept sans for cleaner chat look */
+            font-weight: 600;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        .prose p {
+            margin-bottom: 1em;
+        }
+        .prose code {
+            background-color: #2D2F2F;
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
+            font-size: 0.875em;
+            color: #23B9B7;
+        }
+        .prose pre {
+            background-color: #202222;
+            padding: 1em;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #2D2F2F;
+            margin: 1em 0;
+        }
+        .prose pre code {
+            background-color: transparent;
+            color: #E8E8E6;
             padding: 0;
-            box-sizing: border-box;
+        }
+        .prose ul {
+            list-style-type: disc;
+            padding-left: 1.5em;
+            margin-bottom: 1em;
+        }
+        .prose ol {
+            list-style-type: decimal;
+            padding-left: 1.5em;
+            margin-bottom: 1em;
+        }
+        .prose strong {
+            color: #fff;
+            font-weight: 600;
+        }
+        .prose a {
+            color: #23B9B7;
+            text-decoration: none;
+        }
+        .prose a:hover {
+            text-decoration: underline;
         }
 
+        /* Animations */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(25px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
-        @keyframes rotateChakra {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes pulseWhatsapp {
-            0% { transform: scale(1); box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); }
-            50% { transform: scale(1.05); box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6); }
-            100% { transform: scale(1); box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); }
-        }
-
-        /* NEW: Floating icons animation */
-        @keyframes float {
-            0% { transform: translateY(0px) translateX(0px) rotate(0deg); }
-            50% { transform: translateY(-25px) translateX(15px) rotate(10deg); }
-            100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            color: var(--text-dark);
-            text-align: center;
-            line-height: 1.7;
-            padding-bottom: 70px; /* Space for the bottom ad banner */
-            background-color: var(--bg-light);
-            overflow-x: hidden; /* Prevent horizontal scroll */
-        }
-
-        /* --- NEW: Floating Icons Container --- */
-        .floating-icons {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            overflow: hidden;
-        }
-        .floating-icons i, .floating-icons img {
-            position: absolute;
-            color: var(--saffron);
-            opacity: 0.15;
-            animation: float 10s ease-in-out infinite;
-            font-size: 30px;
-        }
-        .floating-icons .icon1 { top: 15%; left: 10%; animation-duration: 12s; }
-        .floating-icons .icon2 { top: 30%; left: 80%; animation-duration: 15s; color: var(--green); }
-        .floating-icons .icon3 { top: 70%; left: 15%; animation-duration: 10s; color: var(--navy); }
-        .floating-icons .icon4 { top: 85%; left: 90%; animation-duration: 18s; }
-        .floating-icons .icon5 { top: 50%; left: 50%; animation-duration: 14s; color: var(--green); }
-        .floating-icons img { width: 40px; }
-
-
-        /* --- Banner Section --- */
-        .banner {
-            position: relative;
-            width: 100%;
-            height: 60vh;
-            background-image: url('https://i.postimg.cc/0ysn35zK/independenceday-02-1.jpg');
-            background-size: cover;
-            background-position: center 30%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-
-        .banner::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
-        }
-
-        .banner-text {
-            position: relative;
-            z-index: 2;
-            color: var(--white);
-        }
-
-        .banner-text h1 {
-            font-family: 'Teko', sans-serif;
-            font-size: 5.5rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            line-height: 1.1;
-            /* NEW: Tricolor glow effect */
-            text-shadow: 0 0 5px #fff, 0 0 10px var(--saffron), 0 0 15px var(--saffron);
-        }
-
-        /* --- Main Content Card --- */
-        .main-card {
-            max-width: 700px;
-            margin: -100px auto 40px auto;
-            background: rgba(255, 255, 255, 0.85); /* Enhanced glass effect */
-            backdrop-filter: blur(12px) saturate(150%);
-            border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-            padding: 30px 40px;
-            position: relative;
-            z-index: 10;
-            animation: fadeIn 0.8s ease-out;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-        }
-
-        /* --- Ashoka Chakra --- */
-        .chakra-container {
-            position: absolute;
-            top: -35px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 70px;
-            height: 70px;
-            background-color: var(--white);
-            border-radius: 50%;
-            padding: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        .chakra {
-            width: 50px;
-            height: 50px;
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Ashoka_Chakra.svg/1200px-Ashoka_Chakra.svg.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            animation: rotateChakra 20s linear infinite;
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
         }
         
-        /* --- General Content Styling --- */
-        #greetingFromSenderSection {
-            background-color: #e8f5e9; /* Light green */
-            border-left: 5px solid var(--green);
-            border-radius: 8px;
-            padding: 15px 20px;
-            margin-bottom: 25px;
-            text-align: left;
+        @keyframes pulse-subtle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
-
-        #greetingFromSenderSection p {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-dark);
+        .animate-pulse-subtle {
+            animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
-        #greetingFromSenderSection #senderName {
-            color: var(--green);
-            font-weight: 700;
-        }
-        
-        #mainInvitationSection, #finalShareSection { padding-top: 15px; }
-
-        #mainInvitationSection h2 {
-            font-family: 'Teko', sans-serif;
-            font-size: 3rem;
-            color: var(--navy);
-            line-height: 1.2;
-            margin-bottom: 10px;
-        }
-        #mainInvitationSection p {
-            color: var(--text-light);
-            font-size: 1.1rem;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        
-        .divider {
-            border: 0;
-            height: 2px;
-            background-image: linear-gradient(to right, transparent, var(--saffron), var(--green), transparent);
-            margin: 30px 0;
-        }
-
-        #nameInput {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-family: 'Poppins', sans-serif;
-            margin-top: 15px;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-        #nameInput:focus {
-            outline: none;
-            border-color: var(--saffron);
-            box-shadow: 0 0 10px rgba(255, 153, 51, 0.3);
-        }
-
-        /* --- NEW: Button with Shimmer Effect --- */
-        .btn-shine {
-            position: relative;
-            overflow: hidden;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: var(--white);
-            border: none;
-            padding: 14px 35px;
-            border-radius: 50px;
-            cursor: pointer;
-            margin-top: 25px;
-            transition: transform 0.2s, box-shadow 0.3s;
-        }
-        #generateBtn {
-            background: linear-gradient(45deg, var(--saffron), #e68a2e);
-            box-shadow: 0 4px 15px rgba(255, 153, 51, 0.4);
-        }
-        .btn-shine:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.2);
-        }
-        .btn-shine::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: left 0.6s ease;
-        }
-        .btn-shine:hover::before { left: 100%; }
-        .btn-shine i { margin-right: 10px; }
-
-        /* Final Share Section */
-        #finalShareSection h3 {
-            font-family: 'Teko', sans-serif;
-            color: var(--green);
-            font-size: 2.5rem;
-            line-height: 1.2;
-        }
-        #finalShareSection .from-message {
-            color: var(--text-light);
-            font-size: 1.1rem;
-            margin-bottom: 25px;
-        }
-        #fromName {
-            color: var(--navy);
-            font-weight: 700;
-        }
-        
-        #whatsappShareBtn {
-            display: inline-block;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: var(--white);
-            background-color: #25D366;
-            padding: 14px 35px;
-            border-radius: 50px;
-            animation: pulseWhatsapp 2s infinite;
-        }
-        #whatsappShareBtn:hover { animation-play-state: paused; }
-        
-        .final-motivational-message {
-            font-weight: 600 !important;
-            color: var(--navy) !important;
-            margin-top: 30px;
-            line-height: 1.8;
-            border-top: 1px solid #ddd;
-            padding-top: 20px;
-        }
-        .final-motivational-message strong { color: var(--saffron); }
-        .final-motivational-message .fire-icon { color: #ff6d00; }
-
-        .hidden { display: none; }
-        
-        @media (max-width: 768px) {
-            .banner-text h1 { font-size: 4rem; }
-            .main-card { margin: -60px 15px 30px 15px; padding: 25px; }
-            .floating-icons { display: none; }
-        }
-
-        @media (max-width: 480px) {
-            .banner-text h1 { font-size: 3.2rem; letter-spacing: 1px;}
-            #mainInvitationSection h2 { font-size: 2.2rem; }
-            #finalShareSection h3 { font-size: 2rem; }
-            .btn-shine, #whatsappShareBtn { font-size: 1rem; padding: 12px 25px; width: 100%; }
-            #whatsappShareBtn { display: block; }
-        }
-
-        /* Ad Banner Styles */
-        .ad-banner-container, .ad-container-box { background-color: transparent; }
-        .ad-banner-container {
-            position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1000;
-            display: flex; justify-content: center; align-items: center;
-            padding: 5px 0; background-color: #ffffffc9; backdrop-filter: blur(5px);
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
-        }
-        .ad-container-box { margin: 30px auto 20px auto; text-align: center; }
     </style>
 </head>
-<body>
+<body class="h-screen flex flex-col md:flex-row overflow-hidden">
 
-    <div class="floating-icons">
-        <i class="fas fa-flag icon1"></i>
-        <i class="fas fa-dove icon2"></i>
-        <i class="fas fa-flag icon3"></i>
-        <i class="fas fa-dove icon4"></i>
-        <img src="https://svgsilh.com/svg/305230-ff9933.svg" class="icon5" alt="India Gate">
-    </div>
-
-    <header class="banner">
-        <div class="banner-text">
-            <h1>वन्दे मातरम्</h1>
-        </div>
-    </header>
-
-    <main class="main-card">
-        <div class="chakra-container"><div class="chakra"></div></div>
-        
-        <div id="greetingFromSenderSection" class="hidden">
-             <p><i class="fa-solid fa-paper-plane"></i> एक खास पैगाम, सीधे दिल से! 🇮🇳 <br><strong><span id="senderName"></span></strong> ने आपको इस गर्व के दिन पर याद किया है।</p>
+    <!-- Sidebar (Desktop) -->
+    <aside class="hidden md:flex w-64 flex-col border-r border-pplx-border bg-pplx-bg h-full p-4 z-20">
+        <div class="flex items-center gap-2 mb-8 px-2 cursor-pointer" onclick="resetChat()">
+            <i class="ph-fill ph-asterisk-simple text-3xl text-pplx-accent"></i>
+            <h1 class="text-xl font-semibold tracking-tight">Larplexity</h1>
         </div>
 
-        <div id="mainInvitationSection">
-            <h2>आज़ादी की गूँज, हर दिल में!</h2>
-            <p>यह सिर्फ एक तारीख नहीं, यह करोड़ों सपनों की उड़ान है, हमारे वीरों का बलिदान है। आइए, इस ऐतिहासिक दिन पर अपनी भावनाओं को शब्दों में पिरोएं और देशभक्ति की ज्योति जलाएं।</p>
-        </div>
-        
-        <hr class="divider" id="divider">
+        <button onclick="resetChat()" class="flex items-center gap-3 w-full bg-pplx-card hover:bg-pplx-hover border border-pplx-border text-sm px-4 py-3 rounded-full transition-colors duration-200 mb-6">
+            <i class="ph ph-plus text-lg"></i>
+            <span>New Thread</span>
+            <div class="ml-auto text-xs text-pplx-muted border border-pplx-border px-1.5 rounded">Ctrl I</div>
+        </button>
 
-        <div id="inputSection">
-            <input type="text" id="nameInput" placeholder="यहाँ अपना गौरवशाली नाम लिखें..." autocomplete="name">
-            <button id="generateBtn" class="btn-shine">
-                <i class="fas fa-pen-nib"></i> मेरा संदेश तैयार करें
+        <div class="flex-1 overflow-y-auto space-y-2">
+            <div class="px-2 pb-2 text-xs font-medium text-pplx-muted uppercase tracking-wider">Library</div>
+            <!-- History Items (Mock) -->
+            <button class="flex items-center gap-3 w-full text-left px-3 py-2 rounded-lg hover:bg-pplx-hover text-pplx-muted hover:text-pplx-text transition-colors text-sm truncate">
+                <i class="ph ph-clock"></i>
+                <span class="truncate">What is quantum computing?</span>
+            </button>
+            <button class="flex items-center gap-3 w-full text-left px-3 py-2 rounded-lg hover:bg-pplx-hover text-pplx-muted hover:text-pplx-text transition-colors text-sm truncate">
+                <i class="ph ph-clock"></i>
+                <span class="truncate">React vs Angular 2024</span>
             </button>
         </div>
 
-        <div id="finalShareSection" class="hidden">
-            <h3>शानदार! आपका तिरंगा संदेश तैयार है।</h3>
-            <p class="from-message">गर्व से भारतीय, <strong><span id="fromName"></span></strong> की ओर से आपको और आपके परिवार को स्वतंत्रता दिवस की ढेरों शुभकामनाएं!</p>
-            
-            <a href="#" id="whatsappShareBtn" target="_blank">
-                <i class="fab fa-whatsapp"></i> अभी WhatsApp पर शेयर करें 🚀
-            </a>
-
-            <p class="final-motivational-message">
-                एक चिंगारी आप जलाएं, एक हम। <i class="fas fa-fire fire-icon"></i><br>
-                मिलकर इस संदेश को <strong>कम से कम 7 और भारतीयों तक</strong> पहुंचाएं। देखते ही देखते यह देशभक्ति की एक <strong>ज्वाला</strong> बन जाएगी!
-            </p>
+        <div class="mt-auto pt-4 border-t border-pplx-border">
+            <div class="flex items-center gap-3 px-2 py-2 text-sm text-pplx-muted hover:text-pplx-text cursor-pointer">
+                <i class="ph ph-gear"></i>
+                <span>Settings</span>
+            </div>
+            <div class="flex items-center gap-3 px-2 py-2 text-sm text-pplx-muted hover:text-pplx-text cursor-pointer">
+                <i class="ph ph-user"></i>
+                <span>Sign Up</span>
+            </div>
         </div>
+    </aside>
+
+    <!-- Mobile Header -->
+    <div class="md:hidden flex items-center justify-between p-4 border-b border-pplx-border bg-pplx-bg z-20">
+        <div class="flex items-center gap-2" onclick="resetChat()">
+            <i class="ph-fill ph-asterisk-simple text-2xl text-pplx-accent"></i>
+            <span class="font-semibold text-lg">Larplexity</span>
+        </div>
+        <button onclick="resetChat()" class="p-2 text-pplx-muted hover:text-pplx-text">
+            <i class="ph ph-plus text-xl"></i>
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col relative h-full w-full">
+        
+        <!-- Chat Area -->
+        <div id="chat-container" class="flex-1 overflow-y-auto px-4 pb-40 pt-8 scroll-smooth">
+            <div class="max-w-3xl mx-auto space-y-8" id="messages-list">
+                
+                <!-- Initial Welcome View -->
+                <div id="welcome-view" class="flex flex-col items-center justify-center min-h-[50vh] text-center space-y-8 opacity-100 transition-opacity duration-300">
+                    <h2 class="text-4xl font-serif font-medium text-pplx-text mb-2">Where knowledge begins</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 w-full max-w-2xl text-left">
+                        <button onclick="fillInput('Explain quantum entanglement simply')" class="p-4 bg-pplx-card hover:bg-pplx-hover border border-pplx-border rounded-xl transition-all group">
+                            <div class="flex items-start justify-between">
+                                <span class="text-sm font-medium text-pplx-text">Explain quantum entanglement</span>
+                                <i class="ph ph-atom text-pplx-muted group-hover:text-pplx-accent"></i>
+                            </div>
+                            <p class="text-xs text-pplx-muted mt-1">Physics concepts</p>
+                        </button>
+                        <button onclick="fillInput('Best travel destinations in Japan')" class="p-4 bg-pplx-card hover:bg-pplx-hover border border-pplx-border rounded-xl transition-all group">
+                            <div class="flex items-start justify-between">
+                                <span class="text-sm font-medium text-pplx-text">Travel in Japan</span>
+                                <i class="ph ph-airplane-tilt text-pplx-muted group-hover:text-pplx-accent"></i>
+                            </div>
+                            <p class="text-xs text-pplx-muted mt-1">Itineraries & tips</p>
+                        </button>
+                        <button onclick="fillInput('Write a python script to parse CSV')" class="p-4 bg-pplx-card hover:bg-pplx-hover border border-pplx-border rounded-xl transition-all group">
+                            <div class="flex items-start justify-between">
+                                <span class="text-sm font-medium text-pplx-text">Python CSV parser</span>
+                                <i class="ph ph-code text-pplx-muted group-hover:text-pplx-accent"></i>
+                            </div>
+                            <p class="text-xs text-pplx-muted mt-1">Coding help</p>
+                        </button>
+                        <button onclick="fillInput('History of the Roman Empire summary')" class="p-4 bg-pplx-card hover:bg-pplx-hover border border-pplx-border rounded-xl transition-all group">
+                            <div class="flex items-start justify-between">
+                                <span class="text-sm font-medium text-pplx-text">Roman Empire History</span>
+                                <i class="ph ph-scroll text-pplx-muted group-hover:text-pplx-accent"></i>
+                            </div>
+                            <p class="text-xs text-pplx-muted mt-1">Historical summaries</p>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Messages will be injected here -->
+            </div>
+        </div>
+
+        <!-- Input Area (Sticky Bottom) -->
+        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-pplx-bg via-pplx-bg to-transparent pt-10 pb-6 px-4 z-10">
+            <div class="max-w-3xl mx-auto">
+                <div class="relative group bg-pplx-card border border-pplx-border focus-within:border-pplx-accent rounded-2xl shadow-lg transition-all duration-200">
+                    <textarea 
+                        id="user-input"
+                        rows="1"
+                        placeholder="Ask anything..."
+                        class="w-full bg-transparent text-pplx-text placeholder-pplx-muted px-4 py-4 pr-12 rounded-2xl focus:outline-none resize-none overflow-hidden max-h-48"
+                        oninput="autoResize(this)"
+                        onkeydown="handleEnter(event)"
+                    ></textarea>
+                    
+                    <div class="absolute right-2 bottom-2 flex items-center gap-2">
+                        <!-- Toggle Focus Mode (Visual Only) -->
+                        <button class="p-2 text-pplx-muted hover:text-pplx-text rounded-full hover:bg-pplx-hover transition-colors" title="Attach">
+                            <i class="ph ph-paperclip"></i>
+                        </button>
+                        <button 
+                            id="send-btn"
+                            onclick="sendMessage()"
+                            class="p-2 bg-pplx-accent/10 text-pplx-accent hover:bg-pplx-accent hover:text-white rounded-full transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            <i class="ph-fill ph-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="text-center mt-2">
+                    <p class="text-xs text-pplx-muted">
+                        Larplexity can make mistakes. Consider checking important information.
+                    </p>
+                </div>
+            </div>
+        </div>
+
     </main>
 
-
-
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const nameInput = document.getElementById('nameInput');
-            const generateBtn = document.getElementById('generateBtn');
-            const mainInvitationSection = document.getElementById('mainInvitationSection');
-            const inputSection = document.getElementById('inputSection');
-            const divider = document.getElementById('divider');
-            const finalShareSection = document.getElementById('finalShareSection');
-            const fromNameSpan = document.getElementById('fromName');
-            const whatsappShareBtn = document.getElementById('whatsappShareBtn');
-            const greetingFromSenderSection = document.getElementById('greetingFromSenderSection');
-            const senderNameSpan = document.getElementById('senderName');
+        // CONFIGURATION
+        // NOTE: In a real production app, use a proxy server. Hardcoding keys in client is unsafe.
+        const API_KEY = "AIzaSyBypJ2DXdgZ5UmWZp_pXhiEoaKDEW8BUa4"; 
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
-            const handlePageLoad = () => {
-                const urlParams = new URLSearchParams(window.location.search);
-                const senderName = urlParams.get('name');
-                if (senderName && senderName.trim() !== '') {
-                    const decodedSenderName = decodeURIComponent(senderName);
-                    document.title = `${decodedSenderName} की तरफ से शुभकामनाएं`;
-                    senderNameSpan.textContent = decodedSenderName;
-                    greetingFromSenderSection.classList.remove('hidden');
-                }
-            };
+        let chatHistory = [];
+        const messagesList = document.getElementById('messages-list');
+        const welcomeView = document.getElementById('welcome-view');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
 
-            generateBtn.addEventListener('click', () => {
-                const currentUserName = nameInput.value.trim();
-                if (currentUserName) {
-                    // <<< --- START: THIS IS THE CODE I ADDED FOR YOUR AD --- >>>
-                    const adUrl = 'https://www.profitableratecpm.com/rq177wr9bu?key=2f2fa4362c7d9b6cc629667d5bae5467';
-                    window.open(adUrl, '_blank');
-                    // <<< --- END: AD CODE --- >>>
-
-                    // Your original code continues below
-                    const baseUrl = window.location.origin + window.location.pathname;
-                    const newUrl = `${baseUrl}?name=${encodeURIComponent(currentUserName)}`;
-
-                    fromNameSpan.textContent = currentUserName;
-
-                    const personalizedMessage = `🇮🇳✨ *जय हिन्द!* ✨🇮🇳\n\n*${currentUserName}* की तरफ से आपके लिए स्वतंत्रता दिवस का एक दिल छू लेने वाला संदेश! 💌\n\nयह सिर्फ एक शुभकामना नहीं, यह मेरे दिल में बसे भारत के लिए सम्मान और अभिमान है। 🙏`;
-                    const callToAction = `\n\nअपना व्यक्तिगत संदेश देखने और बनाने के लिए, इस तिरंगे वाले लिंक पर क्लिक करें 👇:\n${newUrl}\n\n🇮🇳 *#MeraBharatMahan #IndependenceDay2025* 🇮🇳`;
-                    
-                    const whatsappMessage = `${personalizedMessage}${callToAction}`;
-                    whatsappShareBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(whatsappMessage)}`;
-
-                    mainInvitationSection.classList.add('hidden');
-                    inputSection.classList.add('hidden');
-                    greetingFromSenderSection.classList.add('hidden');
-                    divider.classList.add('hidden');
-                    finalShareSection.classList.remove('hidden');
-                } else {
-                    alert('देशभक्ति के इस पर्व पर, कृपया अपना नाम अवश्य लिखें।');
-                }
-            });
-
-            handlePageLoad();
+        // Initial setup
+        marked.setOptions({
+            highlight: function(code, lang) {
+                return code; // Syntax highlighting could be added here with PrismJS/HighlightJS
+            },
+            breaks: true
         });
+
+        // --- Event Handlers ---
+
+        function handleEnter(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        }
+
+        function autoResize(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = textarea.scrollHeight + 'px';
+        }
+
+        function fillInput(text) {
+            userInput.value = text;
+            autoResize(userInput);
+            userInput.focus();
+        }
+
+        function resetChat() {
+            chatHistory = [];
+            messagesList.innerHTML = '';
+            messagesList.appendChild(welcomeView);
+            welcomeView.style.display = 'flex';
+            setTimeout(() => welcomeView.style.opacity = '1', 10);
+            userInput.value = '';
+            userInput.style.height = 'auto';
+        }
+
+        async function sendMessage() {
+            const text = userInput.value.trim();
+            if (!text) return;
+
+            // UI Updates
+            userInput.value = '';
+            userInput.style.height = 'auto';
+            welcomeView.style.opacity = '0';
+            setTimeout(() => welcomeView.style.display = 'none', 300);
+
+            // Add User Message
+            addMessageToUI('user', text);
+            chatHistory.push({ role: "user", parts: [{ text: text }] });
+
+            // Show Thinking State
+            const thinkingId = addThinkingToUI();
+            
+            try {
+                // Call Gemini API
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: chatHistory,
+                        generationConfig: {
+                            temperature: 0.7,
+                            maxOutputTokens: 2048,
+                        }
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    throw new Error(data.error.message);
+                }
+
+                // Parse response
+                const aiText = data.candidates[0].content.parts[0].text;
+                
+                // Remove thinking indicator
+                removeThinkingUI(thinkingId);
+
+                // Add AI Message
+                addMessageToUI('ai', aiText);
+                chatHistory.push({ role: "model", parts: [{ text: aiText }] });
+
+            } catch (error) {
+                console.error("Error:", error);
+                removeThinkingUI(thinkingId);
+                addMessageToUI('error', "Sorry, I encountered an error connecting to the AI. Please try again.");
+            }
+        }
+
+        // --- UI Rendering Functions ---
+
+        function addMessageToUI(role, text) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'animate-fade-in w-full pb-8 border-b border-pplx-border last:border-0';
+            
+            if (role === 'user') {
+                msgDiv.innerHTML = `
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-pplx-border flex items-center justify-center">
+                            <i class="ph-fill ph-user text-pplx-muted"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-serif font-medium text-pplx-text mb-2">${text}</h3>
+                        </div>
+                    </div>
+                `;
+            } else if (role === 'ai') {
+                const parsedHTML = DOMPurify.sanitize(marked.parse(text));
+                msgDiv.innerHTML = `
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-pplx-accent flex items-center justify-center text-white">
+                            <i class="ph-bold ph-asterisk-simple"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-sm font-semibold text-pplx-text">Larplexity</span>
+                                <span class="text-xs text-pplx-muted px-2 py-0.5 rounded border border-pplx-border">AI</span>
+                            </div>
+                            <!-- Sources Mock (Visual only to match Perplexity style) -->
+                            <div class="flex gap-2 mb-4 overflow-x-auto pb-2 scrollbar-hide">
+                                <div class="flex-shrink-0 flex items-center gap-2 px-3 py-2 bg-pplx-card border border-pplx-border rounded-lg text-xs text-pplx-muted hover:bg-pplx-hover cursor-pointer transition-colors">
+                                    <i class="ph-fill ph-globe"></i>
+                                    <span>Search Result 1</span>
+                                </div>
+                                <div class="flex-shrink-0 flex items-center gap-2 px-3 py-2 bg-pplx-card border border-pplx-border rounded-lg text-xs text-pplx-muted hover:bg-pplx-hover cursor-pointer transition-colors">
+                                    <i class="ph-fill ph-article"></i>
+                                    <span>Knowledge Base</span>
+                                </div>
+                                <div class="flex-shrink-0 flex items-center gap-2 px-3 py-2 bg-pplx-card border border-pplx-border rounded-lg text-xs text-pplx-muted hover:bg-pplx-hover cursor-pointer transition-colors">
+                                    <i class="ph-fill ph-image"></i>
+                                    <span>Images</span>
+                                </div>
+                            </div>
+                            <div class="prose prose-invert max-w-none text-sm md:text-base leading-relaxed">
+                                ${parsedHTML}
+                            </div>
+                            
+                            <!-- Action Bar -->
+                            <div class="flex items-center gap-4 mt-4 pt-2">
+                                <button class="flex items-center gap-1 text-xs text-pplx-muted hover:text-pplx-text transition-colors">
+                                    <i class="ph ph-copy"></i> Copy
+                                </button>
+                                <button class="flex items-center gap-1 text-xs text-pplx-muted hover:text-pplx-text transition-colors">
+                                    <i class="ph ph-share-network"></i> Share
+                                </button>
+                                <div class="flex-1"></div>
+                                <button class="text-pplx-muted hover:text-pplx-text"><i class="ph ph-thumbs-up"></i></button>
+                                <button class="text-pplx-muted hover:text-pplx-text"><i class="ph ph-thumbs-down"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (role === 'error') {
+                msgDiv.innerHTML = `
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-500/20 text-red-500 flex items-center justify-center">
+                            <i class="ph-fill ph-warning"></i>
+                        </div>
+                        <div class="text-red-400 pt-1">${text}</div>
+                    </div>
+                `;
+            }
+
+            messagesList.appendChild(msgDiv);
+            
+            // Scroll to bottom
+            const container = document.getElementById('chat-container');
+            container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
+        }
+
+        function addThinkingToUI() {
+            const id = 'thinking-' + Date.now();
+            const msgDiv = document.createElement('div');
+            msgDiv.id = id;
+            msgDiv.className = 'flex gap-4 w-full pb-8 border-b border-pplx-border animate-fade-in';
+            msgDiv.innerHTML = `
+                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-pplx-accent/20 flex items-center justify-center text-pplx-accent animate-pulse">
+                    <i class="ph-bold ph-asterisk-simple"></i>
+                </div>
+                <div class="flex-1 pt-1">
+                    <div class="flex items-center gap-2 text-pplx-accent text-sm font-medium animate-pulse-subtle">
+                        <i class="ph ph-spinner animate-spin"></i>
+                        <span>Searching for answer...</span>
+                    </div>
+                    <div class="mt-3 space-y-2">
+                        <div class="h-2 bg-pplx-card rounded w-3/4 animate-pulse"></div>
+                        <div class="h-2 bg-pplx-card rounded w-1/2 animate-pulse"></div>
+                    </div>
+                </div>
+            `;
+            messagesList.appendChild(msgDiv);
+            const container = document.getElementById('chat-container');
+            container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
+            return id;
+        }
+
+        function removeThinkingUI(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
     </script>
-
-
-
 </body>
 </html>
+
